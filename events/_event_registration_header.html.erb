@@ -1,0 +1,47 @@
+<div class="registrationheadCntrl">
+    <div class="row">
+        <div class="col-sm-6">
+            <div class="graceprofile">
+                <div class="graceimg">
+                  <%= image_tag %w(babaji ishanji).include?(@event.graced_by.to_s.gsub(' ', '').downcase)? "#{@event.graced_by.to_s.gsub(' ', '').downcase}sm.png" : 'profile.png'%>
+                </div>
+                <div class="gracedetails">
+                    <div class="gracetrack">
+                        <h2><%= @event.graced_by %></h2>
+                    </div>
+                    <div class="gracetrack">
+                        <label>Contact:</label>
+                        <% @event.contact_details.split(',').map do |e|%>
+                        <p><%= e %></p>
+                        <%end%>
+                        <!-- <p><%#= @event.contact_details %></p> -->
+                    </div>
+                    <div class="gracetrack">
+                        <label>Venue:</label>
+                        <p><%= @event.street_address %></p>
+                        <p><%= "#{@event.city_name}, #{@event.state_name} - #{@event.postal_code}" %></p>
+                        <p><%= @event.country_name %></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-6">
+            <div class="gracedetails">
+                <div class="gracetrack">
+                    <label>Event Date & Time:</label>
+                    <p><%= format_date(@event.event_start_date) %> <span>To</span> <%= format_date(@event.event_end_date) %></p>
+                </div>
+                <% if @event.discount_plan.present? %>
+                    <div class="gracetrack warningmessage">
+                        <p>This event has special discounts for Forum Members that will be visible when you reach the payment page. <%= (@event.description.present? ? raw(@event.description) : "") %></p>
+                    </div>
+                <% elsif @event.description.present? %>
+                    <div class="gracetrack warningmessage">
+                        <p><%= raw(@event.description) %></p>
+                    </div>
+                <% end %>
+            </div>
+        </div>
+    </div>
+    <div class="shivyog-sepeator"></div>
+</div>
